@@ -8,9 +8,19 @@ import numpy as np
 import logging
 import tensorflow as tf
 import sys
+import argparse
 
 import fcn16_vgg
 import utils
+
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+CAT_DIR = os.path.join(BASE_DIR, "test_data/tabby_cat.png")
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--input", type=str, default=CAT_DIR, help="path to Input file to use")
+FLAGS = parser.parse_args()
+FILE_DIR = FLAGS.input
 
 logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',
                     level=logging.INFO,
@@ -18,10 +28,7 @@ logging.basicConfig(format='%(asctime)s %(levelname)s %(message)s',
 
 from tensorflow.python.framework import ops
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-sys.path.append(BASE_DIR)
-
-img1 = scp.misc.imread(os.path.join(BASE_DIR, "test_data/tabby_cat.png"))
+img1 = scp.misc.imread(FILE_DIR)
 
 with tf.Session() as sess:
     images = tf.placeholder("float")
