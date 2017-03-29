@@ -3,6 +3,7 @@
 import os
 import scipy as scp
 import scipy.misc
+import sys
 
 import numpy as np
 import tensorflow as tf
@@ -12,7 +13,10 @@ import utils
 
 from tensorflow.python.framework import ops
 
-img1 = scp.misc.imread("./test_data/tabby_cat.png")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(BASE_DIR)
+
+img1 = scp.misc.imread(os.path.join(BASE_DIR, "test_data/tabby_cat.png"))
 
 with tf.Session() as sess:
     images = tf.placeholder("float")
